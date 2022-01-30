@@ -32,7 +32,10 @@ passport.use(new DiscordStrategy({
                     verified: profile.verified,
                     guilds: profile.guilds
                 });
-                return cb(null, user);
+                // fail oauth if user does not have premium
+                if (user.premiumRemaining > 0 || user.premiumGuilds.length > 0)
+                    return cb(null, user);
+                else return cb(null, false);
             } else {
                 const user = await User.create({
                     discordId: profile.id,

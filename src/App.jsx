@@ -18,6 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Privacy = React.lazy(() => import("./pages/Privacy/Privacy"));
 const Landing = React.lazy(() => import("./pages/Landing/Landing"));
 const Dashboard = React.lazy(() => import("./pages/Dashboard/Dashboard"));
+const LoginFailed = React.lazy(() => import("./pages/LoginFailed/LoginFailed"));
 const ServerPicker = React.lazy(() =>
     import("./pages/ServerPicker/ServerPicker")
 );
@@ -45,10 +46,17 @@ function App() {
     }, []);
 
     React.useEffect(() => {
+        const unAuthenticatedRoutes = ["/auth-failed"];
+        if (unAuthenticatedRoutes.includes(history.location.pathname)) return;
         if (isAuthChecked && !isAuthenticated) {
             discordLogin();
         }
-    }, [isAuthChecked, isAuthenticated, discordLogin]);
+    }, [
+        history.location.pathname,
+        isAuthChecked,
+        isAuthenticated,
+        discordLogin,
+    ]);
 
     return (
         <>
@@ -75,6 +83,11 @@ function App() {
                             {/* Privacy route */}
                             <Route path="/privacy">
                                 <Privacy />
+                            </Route>
+
+                            {/* Auth failed */}
+                            <Route path="/auth-failed">
+                                <LoginFailed />
                             </Route>
 
                             {/* Landing route */}

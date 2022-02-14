@@ -32,14 +32,12 @@ passport.use(new DiscordStrategy({
                     verified: profile.verified,
                     guilds: profile.guilds
                 }, { new: true });
-                // fail oauth if user does not have premium
-                console.log(Object.keys(user), typeof user.premiumGuilds, user.premiumGuilds?.length);
+
+                // alllow login only if user has premium
                 if (user.premiumRemaining > 0 || user.premiumGuilds?.length > 0) {
-                    console.log("==========================================================");
                     return cb(null, user);
                 }
                 else {
-                    console.log(".................................................");
                     return cb(null, false);
                 }
             } else {

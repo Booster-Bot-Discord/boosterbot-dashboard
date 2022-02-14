@@ -68,7 +68,10 @@ const Navbar = () => {
                         Discord
                     </a>
                     {!isAuthenticated ? (
-                        <button onClick={discordLogin} className="login-button">
+                        <button
+                            onClick={discordLogin}
+                            className="nav-login-button"
+                        >
                             <img src={discordLogo} alt="discord_logo" />
                             <p className="login-title">Login</p>
                         </button>

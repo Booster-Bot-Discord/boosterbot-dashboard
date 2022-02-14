@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 
 export const useDiscordLogin = () => {
     return function () {
-        window.open(`http://localhost:4000/api/v1/auth/discord`, "_self");
+        window.open(`${process.env.REACT_APP_SERVER_URL}/api/v1/auth/discord`, "_self");
     }
 }
 

@@ -1,6 +1,7 @@
 require("dotenv").config();
 require("./strategies/discord");
 
+const path = require("path");
 const express = require("express");
 const passport = require("passport");
 const helmet = require("helmet");
@@ -42,7 +43,14 @@ app.use("/api/v1/", apiLimiter);
 const routes = require("./Routes");
 app.use("/api/v1", routes);
 
-const PORT = process.env.PORT || 4000;
+// server local build files
+app.use(express.static(path.join(__dirname, "../build")));
+
+app.get("*", (request, response) => {
+    response.sendFile(path.join(__dirname, "/", "../build", "index.html"));
+});
+
+const PORT = process.env.PORT || 4420;
 database().then(() => {
     console.log("connected to database");
     app.listen(PORT, () => {

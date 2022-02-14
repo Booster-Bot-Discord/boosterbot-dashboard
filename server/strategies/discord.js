@@ -31,11 +31,17 @@ passport.use(new DiscordStrategy({
                     email: profile.email,
                     verified: profile.verified,
                     guilds: profile.guilds
-                });
+                }, { new: true });
                 // fail oauth if user does not have premium
-                if (user.premiumRemaining > 0 || user.premiumGuilds.length > 0)
+                console.log(Object.keys(user), typeof user.premiumGuilds, user.premiumGuilds?.length);
+                if (user.premiumRemaining > 0 || user.premiumGuilds?.length > 0) {
+                    console.log("==========================================================");
                     return cb(null, user);
-                else return cb(null, false);
+                }
+                else {
+                    console.log(".................................................");
+                    return cb(null, false);
+                }
             } else {
                 const user = await User.create({
                     discordId: profile.id,

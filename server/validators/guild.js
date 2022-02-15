@@ -150,7 +150,7 @@ module.exports = {
             throw new Error("Invalid addon.");
         }
         // validate color
-        if (config.color && (typeof config.color !== "object" || !/^#[0-9A-F]{6}$/i.test(config.color[0]))) {
+        if (config.color?.length && (typeof config.color !== "object" || !/^#[0-9A-F]{6}$/i.test(config.color[0]))) {
             throw new Error("Invalid color.");
         }
 

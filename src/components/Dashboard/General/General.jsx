@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 import {
+    setBotNickname,
     setDbGeneralConfig,
     setSystemChannelId,
     setSystemChannelFlags,
@@ -27,22 +28,25 @@ const General = () => {
     const permissions = useSelector((state) => state.guild.permissions);
     const systemChannelId = useSelector((state) => state.guild.systemChannelId);
     const guildFlags = useSelector((state) => state.guild.systemChannelFlags);
+    const botNickname = useSelector((state) => state.guild.botNickname);
 
     const toastId = React.useRef(null);
     const [disableButton, setDisableButton] = React.useState(false);
     const [prefixValue, setPrefixValue] = React.useState(
         guildConfig?.prefix || "bb"
     );
-    const [nickname, setNickname] = React.useState("");
+    const [nickname, setNickname] = React.useState(botNickname || "");
     const [selectedChannel, setSelectedChannel] = React.useState(
         guildChannels?.find((c) => c.id === systemChannelId)
     );
 
+    // sync settings
     React.useEffect(() => {
         setSelectedChannel(
             guildChannels?.find((c) => c.id === systemChannelId)
         );
-    }, [systemChannelId, guildChannels]);
+        setNickname(botNickname || "");
+    }, [systemChannelId, guildChannels, botNickname]);
     React.useEffect(() => {
         setPrefixValue(guildConfig?.prefix || "bb");
     }, [guildConfig]);
@@ -103,6 +107,9 @@ const General = () => {
         });
         updateBotNickname(guildId, nickname)
             .then(() => {
+                dispatch(
+                    setBotNickname({ ...guildConfig, botNickname: nickname })
+                );
                 toast.update(toastId.current, {
                     render: "Nickname updated!",
                     type: toast.TYPE.SUCCESS,

@@ -107,7 +107,18 @@ const getGuildData = async (req, res) => {
                 "Authorization": `Bot ${process.env.BOT_TOKEN}`
             }
         });
-        return res.status(200).json(result.data);
+        const nickRes = await axios({
+            method: "get",
+            url: `${process.env.BOT_SERVER_URL}/nickname/${req.params.guildId}`,
+            headers: {
+                "Authorization": `Bot ${process.env.BOT_TOKEN}`
+            }
+        });
+        const data = {
+            ...result.data,
+            ...nickRes.data
+        };
+        return res.status(200).json(data);
     }
     catch (err) {
         console.error(err);

@@ -8,6 +8,7 @@ const guildSlice = createSlice({
         name: "",
         icon: "",
         memberCount: 0,
+        botNickname: "",
         permissions: null,
         highestRolePosition: 0,
         roles: [],
@@ -33,6 +34,9 @@ const guildSlice = createSlice({
         },
         setMemberCount: (state, action) => {
             state.memberCount = action.payload;
+        },
+        setBotNickname: (state, action) => {
+            state.botNickname = action.payload;
         },
         setPermissions: (state, action) => {
             state.permissions = action.payload;
@@ -79,7 +83,8 @@ export const {
     setDbGeneralConfig,
     setDbGreetConfig,
     setDbBoostersData,
-    setMemberCount
+    setMemberCount,
+    setBotNickname
 } = guildSlice.actions;
 
 export default guildSlice.reducer;

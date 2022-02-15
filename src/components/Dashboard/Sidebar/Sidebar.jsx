@@ -12,6 +12,8 @@ function Sidebar({ activeTab, setActiveTab }) {
     const guildIcon = useSelector((state) => state.guild.icon);
     const guildName = useSelector((state) => state.guild.name);
     const guildMembers = useSelector((state) => state.guild.memberCount);
+    const defaultGuildIcon =
+        "https://cdn.discordapp.com/attachments/744633854253334548/943211321367855114/pngegg.png";
 
     useEffect(() => {
         setActiveTab(history.location.pathname.split("/")[3]);
@@ -24,7 +26,7 @@ function Sidebar({ activeTab, setActiveTab }) {
                 <div className="sidebar-guild">
                     <img
                         className="sidebar-guild-icon"
-                        src={guildIcon}
+                        src={guildIcon || defaultGuildIcon}
                         alt={guildName}
                         onClick={() => {
                             history.push(

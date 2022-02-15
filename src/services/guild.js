@@ -5,6 +5,7 @@ import {
     setName,
     setIcon,
     setMemberCount,
+    setBotNickname,
     setPermissions,
     setHighRolePosition,
     setRoles,
@@ -30,6 +31,7 @@ export const useGuildData = () => {
                     dispatch(setName(res.data.name));
                     dispatch(setIcon(res.data.icon));
                     dispatch(setMemberCount(res.data.memberCount));
+                    dispatch(setBotNickname(res.data.botNickname));
                     dispatch(setPermissions(res.data.permissions));
                     dispatch(setHighRolePosition(res.data.highestRolePosition));
                     dispatch(setChannels(

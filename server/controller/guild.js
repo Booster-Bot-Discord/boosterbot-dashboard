@@ -23,7 +23,7 @@ const getGuildConfig = async (req, res) => {
 const updateGuildConfig = async (req, res) => {
     try {
         const config = await validateGuildConfig(req.body.id, req.body);
-        await axios.default.delete(`http://localhost:3000/guild/${req.params.guildId}/cache/guild-config`);
+        await axios.default.delete(`${process.env.BOT_SERVER_URL}/guild/${req.params.guildId}/cache/guild-config`);
         await GuildConfig.findOneAndUpdate({ id: req.params.guildId }, config);
         return res.status(200).json({ message: "Guild config updated" });
     }
@@ -36,7 +36,7 @@ const updateGuildConfig = async (req, res) => {
 const updateGreetConfig = async (req, res) => {
     try {
         // TODO: GREET CONFIG CACHING
-        // await axios.default.delete(`http://localhost:3000/guild/${req.params.guildId}/cache`);
+        // await axios.default.delete(`${process.env.BOT_SERVER_URL}/guild/${req.params.guildId}/cache`);
         const config = await validateGreetConfig(req.body.id, req.body);
         await GreetConfig.findOneAndUpdate({ id: req.params.guildId }, config);
         return res.status(200).json({ message: "Greet config updated" });
@@ -49,7 +49,7 @@ const updateGreetConfig = async (req, res) => {
 // update guild syatem channel in discord api
 const updateGuildSystemChannel = async (req, res) => {
     try {
-        await axios.default.patch(`http://localhost:3000/systemchannel/${req.params.guildId}`, {
+        await axios.default.patch(`${process.env.BOT_SERVER_URL}/systemchannel/${req.params.guildId}`, {
             channelId: req.body.channelId
         });
         return res.status(200).json({ message: "Guild system channel updated." });
@@ -62,7 +62,7 @@ const updateGuildSystemChannel = async (req, res) => {
 // update guild system channal flags in discord api
 const updateGuildSystemChannelFlags = async (req, res) => {
     try {
-        await axios.default.patch(`http://localhost:3000/systemchannelflags/${req.params.guildId}`, {
+        await axios.default.patch(`${process.env.BOT_SERVER_URL}/systemchannelflags/${req.params.guildId}`, {
             systemChannelFlags: req.body.flags
         });
         return res.status(200).json({ message: "Guild system channel flags updated." });
@@ -77,7 +77,7 @@ const getGuildData = async (req, res) => {
     try {
         const result = await axios({
             method: "get",
-            url: `http://localhost:3000/guilds/${req.params.guildId}`
+            url: `${process.env.BOT_SERVER_URL}/guilds/${req.params.guildId}`
         });
         return res.status(200).json(result.data);
     }

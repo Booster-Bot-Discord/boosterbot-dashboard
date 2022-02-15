@@ -36,7 +36,7 @@ module.exports = {
         // get guild data for validation
         const result = await axios({
             method: "get",
-            url: `http://localhost:3000/guilds/${guildID}`
+            url: `${process.env.BOT_SERVER_URL}/guilds/${guildID}`
         }).catch(err => {
             console.log(err);
             throw new Error("Could not get guild data");
@@ -128,7 +128,7 @@ module.exports = {
         // get guild data for validation
         const result = await axios({
             method: "get",
-            url: `http://localhost:3000/guilds/${guildID}`
+            url: `${process.env.BOT_SERVER_URL}/guilds/${guildID}`
         }).catch(err => {
             console.log(err);
             throw new Error("Could not get guild data");

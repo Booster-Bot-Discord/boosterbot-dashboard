@@ -55,7 +55,7 @@ const updatePrefix = async (req, res) => {
 
 // update bot nickname, call bot api
 const updateBotNickname = async (req, res) => {
-    if (!req.body.nickname || req.body.nickname.length < 1 || req.body.nickname.length > 32)
+    if (req.body?.nickname?.length > 32)
         return res.status(400).json({
             message: "Invalid nickname"
         });
@@ -67,7 +67,7 @@ const updateBotNickname = async (req, res) => {
                 "Authorization": `Bot ${process.env.BOT_TOKEN}`
             },
             data: {
-                nickname: req.body.nickname,
+                nickname: req.body?.nickname || "",
             }
         });
         res.status(200).json({

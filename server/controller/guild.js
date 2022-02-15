@@ -8,10 +8,28 @@ const { validateGuildConfig, validateGreetConfig } = require("../validators/guil
 
 // get guild config from database.
 const getGuildConfig = async (req, res) => {
+    const guildId = req.params.guildId;
+    if (!guildId) return res.status(400).json({ message: "No guild id provided." });
     try {
-        const dbGeneraConfig = await GuildConfig.findOne({ id: req.params.guildId });
-        const dbGreetConfig = await GreetConfig.findOne({ id: req.params.guildId });
-        const dbBoostersData = await GuildData.findOne({ id: req.params.guildId });
+        const dbGeneraConfig = await GuildConfig.findOne({ id: guildId });
+        let dbGreetConfig = await GreetConfig.findOne({ id: guildId });
+        if (!dbGreetConfig) {
+            const greetConfig = new GreetConfig({
+                id: guildId,
+                messages: ["Thanks for the boost <a:boost:803182075666366494>\nEnjoy your special perks <a:love_shower:803182076001910784>"],
+                channel: null,
+                isEmbed: true,
+                stats: true,
+                thumbnail: "user",
+                author: "{username}",
+                authorIcon: "user",
+                footer: "{username} Boosted the server :)",
+                footerIcon: "https://cdn.discordapp.com/emojis/803182075666366494.gif",
+            });
+            await greetConfig.save().catch(console.error);
+            dbGreetConfig = greetConfig;
+        }
+        const dbBoostersData = await GuildData.findOne({ id: guildId });
         return res.status(200).json({ dbGeneraConfig, dbGreetConfig, dbBoostersData });
     }
     catch (err) {

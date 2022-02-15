@@ -45,16 +45,18 @@ const General = () => {
         setSelectedChannel(
             guildChannels?.find((c) => c.id === systemChannelId)
         );
-        setNickname(botNickname || "");
-    }, [systemChannelId, guildChannels, botNickname]);
+    }, [systemChannelId, guildChannels]);
     React.useEffect(() => {
         setPrefixValue(guildConfig?.prefix || "bb");
     }, [guildConfig]);
+    React.useEffect(() => {
+        setNickname(botNickname || "");
+    }, [botNickname]);
 
     // reusable error handler
     const handleError = (error) => {
         toast.update(toastId.current, {
-            render: error.message,
+            render: error.response.data.message,
             type: toast.TYPE.ERROR,
             autoClose: 5000,
         });
@@ -90,10 +92,8 @@ const General = () => {
 
     // handle change nickname apply
     const changeNickname = () => {
-        if (nickname.length < 1 || nickname.length > 32) {
-            return toast.error(
-                "Nickname length can be 1 to 35 characters long."
-            );
+        if (nickname.length > 32) {
+            return toast.error("Nickname length can upto 35 characters long.");
         }
         if (!permissions.CHANGE_NICKNAME) {
             return toast.error(
@@ -107,11 +107,11 @@ const General = () => {
         });
         updateBotNickname(guildId, nickname)
             .then(() => {
-                dispatch(
-                    setBotNickname({ ...guildConfig, botNickname: nickname })
-                );
+                dispatch(setBotNickname(nickname));
                 toast.update(toastId.current, {
-                    render: "Nickname updated!",
+                    render: nickname
+                        ? "Nickname updated!"
+                        : "Nickname removed!",
                     type: toast.TYPE.SUCCESS,
                     autoClose: 5000,
                 });

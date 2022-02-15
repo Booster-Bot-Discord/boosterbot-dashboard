@@ -2,7 +2,7 @@ const User = require("../database/models/User");
 
 const getAllGuilds = async (req, res) => {
     try {
-        const userDate = await User.findOne({ id: req.user.id });
+        const userDate = await User.findOne({ discordId: req.user.id });
         const guilds = await userDate.guilds;
         res.status(200).json({ guilds });
     }

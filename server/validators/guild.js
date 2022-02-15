@@ -172,7 +172,7 @@ module.exports = {
         // TODO: PREMIUM CHECK
         /*****/
         // validate messages
-        if (config.messages && (typeof config.messages !== "object" || config.messages.length < 1 || config.messages.length >= 10)) {
+        if (config.messages?.length && (typeof config.messages !== "object" || config.messages.length >= 10)) {
             throw new Error("Invalid messages.");
         }
         for (const message of config.messages) {
@@ -204,7 +204,7 @@ module.exports = {
         // TODO: PREMIUM CHECK
         /*****/
         // validate images
-        if (config.images && (typeof config.images !== "object" || config.images.length < 1 || config.images.length >= 10)) {
+        if (config.images?.length && (typeof config.images !== "object" || config.images.length >= 10)) {
             throw new Error("Invalid images.");
         }
         for (const image of config.images) {

@@ -17,7 +17,7 @@ const getAllGuildIds = async (req, res) => {
                 guildIds: result.data
             })
         }).catch((err) => {
-            console.log(err);
+            console.error(err);
             res.status(500).json({
                 message: "Internal Server Error"
             })
@@ -31,7 +31,7 @@ const updatePrefix = async (req, res) => {
             return res.status(400).json({ message: "Prefix must be between 1 and 35 characters." });
         await axios({
             method: "patch",
-            url: `${process.env.BOT_SERVER_URL}/allguildids`,
+            url: `${process.env.BOT_SERVER_URL}/prefix/${req.params.guildId}`,
             headers: {
                 "Authorization": `Bot ${process.env.BOT_TOKEN}`
             },
@@ -46,6 +46,7 @@ const updatePrefix = async (req, res) => {
         });
     }
     catch (err) {
+        console.error(err);
         return res.status(500).json({
             message: "Internal Server Error"
         });
@@ -75,7 +76,7 @@ const updateBotNickname = async (req, res) => {
         });
     }
     catch (err) {
-        console.log(err);
+        console.error(err);
         res.status(500).json({
             message: "Internal Server Error"
         })

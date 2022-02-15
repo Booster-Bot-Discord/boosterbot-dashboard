@@ -15,7 +15,7 @@ const getStats = async (req, res) => {
                 stats: result.data
             })
         }).catch((err) => {
-            console.log(err);
+            console.error(err);
             res.status(500).json({
                 message: "Internal Server Error"
             })

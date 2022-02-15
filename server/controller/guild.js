@@ -15,6 +15,7 @@ const getGuildConfig = async (req, res) => {
         return res.status(200).json({ dbGeneraConfig, dbGreetConfig, dbBoostersData });
     }
     catch (err) {
+        console.error(err);
         return res.status(500).json({ message: err.message });
     }
 }
@@ -34,6 +35,7 @@ const updateGuildConfig = async (req, res) => {
         return res.status(200).json({ message: "Guild config updated" });
     }
     catch (err) {
+        console.error(err);
         return res.status(500).json({ message: "Could not update settings" });
     }
 }
@@ -48,6 +50,7 @@ const updateGreetConfig = async (req, res) => {
         return res.status(200).json({ message: "Greet config updated" });
     }
     catch (err) {
+        console.error(err);
         return res.status(500).json({ message: "Could not update settings" });
     }
 }
@@ -68,6 +71,7 @@ const updateGuildSystemChannel = async (req, res) => {
         return res.status(200).json({ message: "Guild system channel updated." });
     }
     catch (err) {
+        console.error(err);
         return res.status(500).json({ message: "Could not update system channel." });
     }
 }
@@ -88,6 +92,7 @@ const updateGuildSystemChannelFlags = async (req, res) => {
         return res.status(200).json({ message: "Guild system channel flags updated." });
     }
     catch (err) {
+        console.error(err);
         return res.status(500).json({ message: "Could not update system channel flags." });
     }
 }
@@ -105,6 +110,7 @@ const getGuildData = async (req, res) => {
         return res.status(200).json(result.data);
     }
     catch (err) {
+        console.error(err);
         return res.status(500).json({ message: err.message });
     }
 }

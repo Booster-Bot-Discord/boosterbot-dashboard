@@ -9,11 +9,13 @@ import "../Embed.scss";
 const Color = ({ toastId, updateConfig, disableButton, setDisableButton }) => {
     const greetConfig = useSelector((state) => state.guild.dbGreetConfig);
 
-    const [color, setColor] = React.useState(greetConfig?.color || ["#F47FFF"]);
+    const [color, setColor] = React.useState(
+        greetConfig?.color?.length ? greetConfig?.color : ["#F47FFF"]
+    );
 
     // Sync greet images
     React.useEffect(() => {
-        setColor(greetConfig?.color || ["#F47FFF"]);
+        setColor(greetConfig?.color?.length ? greetConfig?.color : ["#F47FFF"]);
     }, [greetConfig]);
 
     // handle color change
@@ -69,7 +71,11 @@ const Color = ({ toastId, updateConfig, disableButton, setDisableButton }) => {
                             <button
                                 className="greet-apply"
                                 onClick={() =>
-                                    setColor([greetConfig?.color || "#F47FFF"])
+                                    setColor([
+                                        greetConfig?.color?.length
+                                            ? greetConfig?.color[0]
+                                            : "#F47FFF",
+                                    ])
                                 }
                             >
                                 Enable

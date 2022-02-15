@@ -20,6 +20,7 @@ const getGuildConfig = async (req, res) => {
                 channel: null,
                 isEmbed: true,
                 stats: true,
+                color: ["#F47FFF"],
                 thumbnail: "user",
                 author: "{username}",
                 authorIcon: "user",

@@ -7,6 +7,9 @@ const getAllGuildIds = async (req, res) => {
     axios({
         method: "get",
         url: `${process.env.BOT_SERVER_URL}/allguildids`,
+        headers: {
+            "Authorization": `Bot ${process.env.BOT_TOKEN}`
+        }
     })
         .then((result) => {
             res.status(200).json({
@@ -26,8 +29,15 @@ const updatePrefix = async (req, res) => {
     try {
         if (req.body.prefix.length < 1 || req.body.prefix.length > 35)
             return res.status(400).json({ message: "Prefix must be between 1 and 35 characters." });
-        await axios.default.patch(`${process.env.BOT_SERVER_URL}/prefix/${req.params.guildId}`, {
-            prefix: req.body.prefix
+        await axios({
+            method: "patch",
+            url: `${process.env.BOT_SERVER_URL}/allguildids`,
+            headers: {
+                "Authorization": `Bot ${process.env.BOT_TOKEN}`
+            },
+            data: {
+                prefix: req.body.prefix,
+            }
         }).then(async () => {
             await GuildConfig.findOneAndUpdate({ id: req.params.guildId }, { prefix: req.body.prefix });
         });
@@ -49,8 +59,15 @@ const updateBotNickname = async (req, res) => {
             message: "Invalid nickname"
         });
     try {
-        const response = await axios.default.patch(`${process.env.BOT_SERVER_URL}/nickname/${req.params.guildId}`, {
-            nickname: req.body.nickname
+        const response = await axios({
+            method: "patch",
+            url: `${process.env.BOT_SERVER_URL}/nickname/${req.params.guildId}`,
+            headers: {
+                "Authorization": `Bot ${process.env.BOT_TOKEN}`
+            },
+            data: {
+                nickname: req.body.nickname,
+            }
         });
         res.status(200).json({
             message: "Nickname updated successfully",

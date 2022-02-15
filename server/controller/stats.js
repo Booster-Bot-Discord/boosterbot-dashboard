@@ -5,6 +5,9 @@ const getStats = async (req, res) => {
     axios({
         method: "get",
         url: `${process.env.BOT_SERVER_URL}/stats`,
+        headers: {
+            "Authorization": `Bot ${process.env.BOT_TOKEN}`
+        }
     })
         .then((result) => {
             res.status(200).json({

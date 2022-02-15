@@ -64,7 +64,7 @@ const Title = ({ toastId, updateConfig, disableButton, setDisableButton }) => {
                     </p>
                 ) : (
                     <p className="greet-content">
-                        <b>There will be no bold header to emebd</b>
+                        <b>There will be no bold header to embed</b>
                         <br />
                         Enable now to set embed title headline.
                     </p>

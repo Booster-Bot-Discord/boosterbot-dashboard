@@ -228,7 +228,7 @@ const Setup = () => {
                     <div className="setup-content">
                         <p>
                             Manager can edit bot settings via commands (if they
-                            don't have access to dashbaord)
+                            don't have access to dashboard)
                         </p>
                         <Dropdown
                             selected={botManagerRole}

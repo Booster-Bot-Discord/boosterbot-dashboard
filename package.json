@@ -4,24 +4,24 @@
   "private": true,
   "proxy": "http://localhost:4420",
   "dependencies": {
-    "@craco/craco": "^6.2.0",
-    "@reduxjs/toolkit": "^1.6.1",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "axios": "^0.21.1",
-    "framer-motion": "^4.1.17",
-    "joi": "^17.4.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-icons": "^4.2.0",
-    "react-redux": "^7.2.4",
-    "react-router-dom": "^5.2.0",
+    "@craco/craco": "6.2.0",
+    "@reduxjs/toolkit": "1.6.1",
+    "@testing-library/jest-dom": "5.11.4",
+    "@testing-library/react": "11.1.0",
+    "@testing-library/user-event": "12.1.10",
+    "axios": "0.21.1",
+    "framer-motion": "4.1.17",
+    "joi": "17.4.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-icons": "4.2.0",
+    "react-redux": "7.2.4",
+    "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
-    "react-toastify": "^8.0.2",
-    "sass": "^1.38.1",
-    "typewriter-effect": "^2.18.0",
-    "web-vitals": "^1.0.1"
+    "react-toastify": "8.0.2",
+    "sass": "1.38.1",
+    "typewriter-effect": "2.18.0",
+    "web-vitals": "1.0.1"
   },
   "scripts": {
     "start": "craco start",
@@ -48,8 +48,8 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^9",
-    "postcss": "^7",
+    "autoprefixer": "9",
+    "postcss": "7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   }
 }

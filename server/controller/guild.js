@@ -78,7 +78,7 @@ const updateGreetConfig = async (req, res) => {
 const updateGuildSystemChannel = async (req, res) => {
     try {
         await axios({
-            method: "delete",
+            method: "patch",
             url: `${process.env.BOT_SERVER_URL}/systemchannel/${req.params.guildId}`,
             headers: {
                 "Authorization": `Bot ${process.env.BOT_TOKEN}`

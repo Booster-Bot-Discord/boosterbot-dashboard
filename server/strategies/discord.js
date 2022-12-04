@@ -32,14 +32,15 @@ passport.use(new DiscordStrategy({
                     verified: profile.verified,
                     guilds: profile.guilds
                 }, { new: true });
+                return cb(null, user);
 
-                // alllow login only if user has premium
-                if (user.premiumRemaining > 0 || user.premiumGuilds?.length > 0) {
-                    return cb(null, user);
-                }
-                else {
-                    return cb(null, false);
-                }
+                // NOTE: allow login only if user has premium
+                // if (user.premiumRemaining > 0 || user.premiumGuilds?.length > 0) {
+                //     return cb(null, user);
+                // }
+                // else {
+                //     return cb(null, false);
+                // }
             } else {
                 const user = await User.create({
                     discordId: profile.id,

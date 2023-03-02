@@ -22,6 +22,7 @@ const guildConfigSchema = new mongoose.Schema({
     //    allboosters: { id: Srting, name: String}, currboosters: { id: String, name: String }}
     stats: { type: Map },
     hasCustomBot: { type: Boolean },
+    privateChannel: { type: Map },
 });
 
 module.exports = mongoose.model("guildConfig", guildConfigSchema);

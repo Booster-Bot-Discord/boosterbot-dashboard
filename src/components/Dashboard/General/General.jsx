@@ -95,7 +95,7 @@ const General = () => {
         if (nickname.length > 32) {
             return toast.error("Nickname length can upto 35 characters long.");
         }
-        if (!permissions.CHANGE_NICKNAME) {
+        if (!permissions.ChangeNickname) {
             return toast.error(
                 "Bot don't have permission to change it's nickname."
             );
@@ -122,7 +122,7 @@ const General = () => {
 
     // handle change system channel apply
     const changeSystemChannel = () => {
-        if (!permissions.MANAGE_GUILD) {
+        if (!permissions.ManageGuild) {
             return toast.warn("Bot do not have permission to MANAGE SERVER.");
         }
         if (selectedChannel === "-- disabled --") {
@@ -152,7 +152,7 @@ const General = () => {
 
     // handle system channel flags change
     const changeSystemChannelFlags = () => {
-        if (!permissions.MANAGE_GUILD) {
+        if (!permissions.ManageGuild) {
             return toast.warn("Bot do not have permission to MANAGE SERVER.");
         }
         setDisableButton(true);

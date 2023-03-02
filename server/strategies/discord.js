@@ -1,4 +1,6 @@
-require("dotenv").config();
+require("dotenv").config({
+    path: "../.env"
+});
 const passport = require('passport');
 const User = require("../database/models/User");
 const DiscordStrategy = require('passport-discord').Strategy;

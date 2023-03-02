@@ -75,7 +75,7 @@ module.exports = {
 
         // validate giftConfig
         if (config.giftConfig && (typeof config.giftConfig !== "object" || config.giftConfig.length !== 2)) {
-            throw new Error("Invalid gift config.");
+            throw new Error("Invalid gift config.", config.giftConfig, config.giftConfig?.length);
         }
         if (config.giftConfig[0] === 0 || config.giftConfig[1] === 0) {
             config.giftConfig = [0, 0];
@@ -83,7 +83,7 @@ module.exports = {
         if (typeof config.giftConfig[0] !== 'number' || typeof config.giftConfig[1] !== 'number' ||
             config.giftConfig[0] < 0 || config.giftConfig[1] < 0
         ) {
-            throw new Error("Invalid gift config.");
+            throw new Error("Invalid gift config!", config.giftConfig, config.giftConfig?.length);
         }
 
         // validate customRole

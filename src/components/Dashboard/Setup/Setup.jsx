@@ -108,7 +108,7 @@ const Setup = () => {
 
     // handle bot manager update apply
     const changeBotManager = () => {
-        if (!permissions.MANAGE_ROLES) {
+        if (!permissions.ManageRoles) {
             return toast.warn("Bot do not have permission to MANAGE ROLES.");
         }
         if (guildConfig?.botManager === botManagerRole?.id) {
@@ -128,7 +128,7 @@ const Setup = () => {
 
     // handle custom role update apply
     const changeCustomRole = () => {
-        if (!permissions.MANAGE_ROLES) {
+        if (!permissions.ManageRoles) {
             return toast.warn("Bot do not have permission to MANAGE ROLES.");
         }
         if (guildConfig?.customRole === requiredBoostsForCustomRole) {
@@ -150,7 +150,7 @@ const Setup = () => {
 
     // handle gifts update apply
     const changeGifts = () => {
-        if (!permissions.MANAGE_ROLES) {
+        if (!permissions.ManageRoles) {
             return toast.warn("Bot do not have permission to MANAGE ROLES.");
         }
         if (guildConfig?.giftConfig?.length) {
@@ -181,7 +181,7 @@ const Setup = () => {
 
     // handle base role update apply
     const changeBaseRole = () => {
-        if (!permissions.MANAGE_ROLES) {
+        if (!permissions.ManageRoles) {
             return toast.warn("Bot do not have permission to MANAGE ROLES.");
         }
         if (highestRole < baseRole?.position) {
@@ -204,7 +204,7 @@ const Setup = () => {
 
     // handle color update apply
     const changeColor = () => {
-        if (!permissions.MANAGE_ROLES) {
+        if (!permissions.ManageRoles) {
             return toast.warn("Bot do not have permission to MANAGE ROLES.");
         }
         if (guildConfig?.color === color) {

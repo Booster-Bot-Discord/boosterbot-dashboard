@@ -1,5 +1,6 @@
 require("dotenv").config();
 require("./strategies/discord");
+require("./validators/limits");
 
 const path = require("path");
 const express = require("express");

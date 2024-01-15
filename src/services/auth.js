@@ -1,4 +1,4 @@
-import { authCheck, logout } from '../api';
+import { authCheck, logout } from "../api";
 import {
     authenticate,
     deauthenticate,
@@ -6,15 +6,20 @@ import {
     setDiscordId,
     setPermissionLevel,
     setUsername,
-    setAvatar
-} from '../store/userSlice';
-import { useDispatch } from 'react-redux';
+    setAvatar,
+} from "../store/userSlice";
+import { useDispatch } from "react-redux";
 
 export const useDiscordLogin = () => {
     return function () {
-        window.open(`${process.env.REACT_APP_SERVER_URL}/api/v1/auth/discord`, "_self");
-    }
-}
+        console.log(process.env);
+        let loginURL = `${process.env.REACT_APP_PROD_SERVER_URL}/api/v1/auth/discord`;
+        if (process.env.NODE_ENV === "development") {
+            loginURL = `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/v1/auth/discord`;
+        }
+        window.open(loginURL, "_self");
+    };
+};
 
 export const useAuthCheck = () => {
     const dispatch = useDispatch();
@@ -31,15 +36,15 @@ export const useAuthCheck = () => {
         } else {
             // do nothing
         }
-    }
-}
+    };
+};
 
 export const useLogout = () => {
     const dispatch = useDispatch();
 
     return function () {
         logout()
-            .then(res => {
+            .then((res) => {
                 dispatch(deauthenticate());
                 dispatch(setId(""));
                 dispatch(setDiscordId(""));
@@ -47,8 +52,8 @@ export const useLogout = () => {
                 dispatch(setAvatar(""));
                 dispatch(setPermissionLevel(1));
             })
-            .catch(err => {
+            .catch((err) => {
                 console.error(err.response);
             });
-    }
-}
+    };
+};

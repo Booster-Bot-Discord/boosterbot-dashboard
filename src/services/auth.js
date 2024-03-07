@@ -1,59 +1,29 @@
-import { authCheck, logout } from "../api";
-import {
-    authenticate,
-    deauthenticate,
-    setId,
-    setDiscordId,
-    setPermissionLevel,
-    setUsername,
-    setAvatar,
-} from "../store/userSlice";
-import { useDispatch } from "react-redux";
+const express = require("express");
+const passport = require("passport");
+const { isLoggedIn } = require("../middleware/isLoggedIn");
+const { logout, checkAuthenticated } = require("../controller/auth");
+const { getDiscordStrategy } = require("../strategies/discord");
 
-export const useDiscordLogin = () => {
-    return function () {
-        console.log(process.env);
-        let loginURL = `${process.env.REACT_APP_PROD_SERVER_URL}/api/v1/auth/discord`;
-        if (process.env.NODE_ENV === "development") {
-            loginURL = `${process.env.REACT_APP_LOCAL_SERVER_URL}/api/v1/auth/discord`;
-        }
-        window.open(loginURL, "_self");
-    };
-};
+const router = express.Router();
 
-export const useAuthCheck = () => {
-    const dispatch = useDispatch();
+router.get(
+    "/discord",
+    (req, res, next) => {
+        req.session.returnTo = req.headers.referer;
+        const callbackURL = `${req.headers.referer}api/v1/auth/discord/callback`;
+        passport.use(getDiscordStrategy(callbackURL));
+        next();
+    },
+    passport.authenticate("discord", { prompt: "none", keepSessionInfo: true })
+);
+router.get(
+    "/discord/callback",
+    passport.authenticate("discord", {
+        successReturnToOrRedirect: process.env.SERVER_URL + "/",
+        failureRedirect: process.env.SERVER_URL + "/auth-failed",
+    })
+);
+router.get("/logout", isLoggedIn, logout);
+router.get("/check", checkAuthenticated);
 
-    return async function () {
-        const res = await authCheck();
-        if (res.status === 200) {
-            dispatch(authenticate());
-            dispatch(setId(res.data.id));
-            dispatch(setDiscordId(res.data.discordId));
-            dispatch(setUsername(res.data.username));
-            dispatch(setAvatar(res.data.avatar));
-            dispatch(setPermissionLevel(res.data.permissionLevel));
-        } else {
-            // do nothing
-        }
-    };
-};
-
-export const useLogout = () => {
-    const dispatch = useDispatch();
-
-    return function () {
-        logout()
-            .then((res) => {
-                dispatch(deauthenticate());
-                dispatch(setId(""));
-                dispatch(setDiscordId(""));
-                dispatch(setUsername(""));
-                dispatch(setAvatar(""));
-                dispatch(setPermissionLevel(1));
-            })
-            .catch((err) => {
-                console.error(err.response);
-            });
-    };
-};
+module.exports = router;

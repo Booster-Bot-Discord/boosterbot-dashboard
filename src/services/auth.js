@@ -9,8 +9,9 @@ const router = express.Router();
 router.get(
     "/discord",
     (req, res, next) => {
-        req.session.returnTo = req.headers.referer;
-        const callbackURL = `${req.headers.referer}api/v1/auth/discord/callback`;
+        const referer = req.headers.referer ?? process.env.SERVER_URL + "/";
+        req.session.returnTo = referer;
+        const callbackURL = `${referer}api/v1/auth/discord/callback`;
         passport.use(getDiscordStrategy(callbackURL));
         next();
     },

@@ -74,6 +74,8 @@ module.exports = {
         }
 
         // validate giftConfig
+        if (Array.isArray(config.giftConfig) && config.giftConfig.length === 0) config.giftConfig = [0,0];
+
         if (config.giftConfig && (typeof config.giftConfig !== "object" || config.giftConfig.length !== 2)) {
             throw new Error("Invalid gift config.", config.giftConfig, config.giftConfig?.length);
         }

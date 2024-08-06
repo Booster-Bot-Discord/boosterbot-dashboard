@@ -8,7 +8,7 @@ function Soon() {
                 <br />
                 <br />
                 <p className="text-white text-xl font-bold">
-                    Dashboard is in BETA access, please report to support serevr
+                    Dashboard is in BETA access, please report to support server
                     if you face any issue.
                 </p>
             </p>
